@@ -62,14 +62,16 @@ class Neighbourhood(models.Model):
 	# 	photos = cls.objects.filter(name__icontains = search_term)
 	# 	return photos
 class Profile(models.Model):
+    
     username = models.CharField(default='User',max_length=60)
+    # name = models.TextField(default="Your Name")
     profile_image = models.ImageField(upload_to = "profile/",null=True)
     bio = models.TextField(default='',blank = True)
     location = models.TextField(default='',blank = True)
     neighbourhood_name = models.TextField(default='',blank = True)
     # contact = models.TextField(default=0,null = True)
     # project = models.IntegerField(default=0)
-    user = models.ForeignKey(User,null=True)
+    # user = models.ForeignKey(User,null=True)
 
 
 
@@ -88,25 +90,24 @@ class User(models.Model):
     neighbourhood = models.ForeignKey(Neighbourhood, null= True)
     # project = models.ForeignKey(Project, null= True,related_name='rating')
     name= models.TextField(default='',blank = True)
-    email=  models.CharField(default='User',max_length=60)
+    email=  models.EmailField(max_length=75, null=True)
     # content= models.IntegerField(default=0)
     def __str__(self):
         return self.name
 
 
-    def delete_name(self):
+    def delete_profile(self):
         self.delete()
 
-    def save_name(self):
+    def save_profile(self):
         self.save()
-
 class Business(models.Model):
     # user = models.ForeignKey(User, null= True)
     # project = models.ForeignKey(Project, null= True)
     neighbourhood = models.ForeignKey(Neighbourhood, null= True)
     # project = models.ForeignKey(Project, null= True,related_name='rating')
     name= models.TextField(default='',blank = True)
-    email=  models.CharField(default='User',max_length=60)
+    email=  models.EmailField(max_length=75, null=True)
     user = models.ForeignKey(User,null=True)
 
     def __str__(self):
@@ -118,3 +119,9 @@ class Business(models.Model):
 
     def save_name(self):
         self.save()
+
+
+class Post(models.Model):
+    user = models.ForeignKey(Profile,null=True)
+    Text = models.TextField(null=True)
+    neighbourhood = models.ForeignKey(Neighbourhood,null=True, related_name='posts')
