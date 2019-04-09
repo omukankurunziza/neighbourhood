@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from . forms import ProfileUploadForm,ProfileUploadForm
 from django.http  import HttpResponse
-from . models import Admin ,Profile,User,Neighbourhood
+from . models import Admin ,Profile,User,Neighbourhood,Business
 from django.conf import settings
 
 # from .email import send_welcome_email
