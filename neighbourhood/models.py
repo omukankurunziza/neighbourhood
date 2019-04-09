@@ -33,6 +33,9 @@ class Neighbourhood(models.Model):
     def update_location(self,new_location):
         self.name_location = new_location
         self.save()
+    def update_occupant(self,new_occupant):
+        self.name_occupant = new_occupant
+        self.save()
 
 
     @classmethod
@@ -50,11 +53,7 @@ class Neighbourhood(models.Model):
 
     class Meta:
         ordering = ['-pub_date']
-    
-    # @classmethod
-    # def search_by_title(cls,search_term):
-    #     project = cls.objects.filter(title__icontains = search_term)
-    #     return project
+  
 
 
 	# @classmethod
@@ -119,7 +118,15 @@ class Business(models.Model):
 
     def save_name(self):
         self.save()
+  
+    @classmethod
+    def search_by_name(cls,search_term):
+        business = cls.objects.filter(name__icontains = search_term)
+        return business
 
+    def update_email(self,new_email):
+        self.name_email = new_email
+        self.save()
 
 class Post(models.Model):
     user = models.ForeignKey(Profile,null=True)
